@@ -1,53 +1,5 @@
-import pygame
-import sys
-import os
-import math
-from pygame import font
-from pygame.locals import *
-
-pygame.init()
-pygame.font.init()
-
-radius = 448  # EVEN KIJKEN HOEVEEL
-myfont_cookie = pygame.font.SysFont("arial", 50)
-myfont_PC = pygame.font.SysFont("arial", 25)
-myfont_click = pygame.font.SysFont("arial", 22)
-Cookies = 0
-Price1 = 50
-Price2 = 100
-PcUpgradesPrice = 50
-Cookies_PC = 1
-Cookies_CPS = 0
-pygame.time.set_timer(pygame.USEREVENT, 25)
-size = weight, height = 1920, 1080
-screen = pygame.display.set_mode(size)
-MouseClick = 0
-positions = []
-new_positions = []
+from library import *
 mouse_pos = pygame.mouse.get_pos()
-pygame.time.set_timer(pygame.USEREVENT + 1, 400)
-pygame.time.set_timer(pygame.USEREVENT + 3, 50)
-
-
-class Watcher:
-    def __init__(self, MouseClick):
-        self.variable = MouseClick
-
-    def set_value(self, new_MouseClick):
-        if self.variable != new_MouseClick:
-            self.pre_change()
-            self.variable = new_MouseClick
-            self.post_change()
-
-    def pre_change(self):
-        pass
-
-    def post_change(self):
-        pass
-
-#class click:
-    #if positions.append(mouse_pos)
-
 
 class App:
     def __init__(self):
@@ -60,6 +12,29 @@ class App:
         pygame.init()
         self._display_surf = screen
         self._running = True
+
+    def click_display(self):
+        global positions
+        if len(positions) == 0:
+            pygame.time.set_timer(pygame.USEREVENT + 4, 300, 1)
+        if len(positions) == 1:
+            pygame.time.set_timer(pygame.USEREVENT + 5, 300, 1)
+        if len(positions) == 2:
+            pygame.time.set_timer(pygame.USEREVENT + 6, 300, 1)
+        if len(positions) == 4:
+            pygame.time.set_timer(pygame.USEREVENT + 7, 300, 1)
+        if len(positions) == 5:
+            pygame.time.set_timer(pygame.USEREVENT + 8, 300, 1)
+        if len(positions) == 6:
+            pygame.time.set_timer(pygame.USEREVENT + 9, 300, 1)
+        if len(positions) == 7:
+            pygame.time.set_timer(pygame.USEREVENT + 10, 300, 1)
+        if len(positions) == 8:
+            pygame.time.set_timer(pygame.USEREVENT + 11, 300, 1)
+        if len(positions) == 9:
+            pygame.time.set_timer(pygame.USEREVENT + 12, 300, 1)
+        if len(positions) == 10:
+            pygame.time.set_timer(pygame.USEREVENT + 13, 300, 1)
 
     def openFile(self):
         global Cookies, PcUpgradesBought, Cookies_PC, Price1, Price2, Cookies_CPS, MouseClick
@@ -85,7 +60,7 @@ class App:
         f.close()
 
     def on_loop(self):
-        global Price1, myfont_PC, PcUpgradesPrice, click_text, mouse_pos
+        global Price1, myfont_PC, PcUpgradesPrice, click_text, mouse_pos, positions
         score_text = myfont_cookie.render('Cookies: ' + str(int(Cookies)), True, (255, 255, 255))
         screen.blit(score_text, (10, 10))
         score_text = myfont_cookie.render('per seconde: ' + str(int(Cookies_CPS)), True, (255, 255, 255))
@@ -95,7 +70,7 @@ class App:
         pc_text = myfont_PC.render(str(int(Price2)), True, (255, 255, 255))
         screen.blit(pc_text, (220, 140))
         click_text = myfont_click.render(str(int(Cookies_PC)), True, (255, 255, 255))
-        for mouse_pos in new_positions:
+        for mouse_pos in positions:
             screen.blit(click_text, (mouse_pos[0] - 10, mouse_pos[1] - 35))
         pygame.display.flip()
 
@@ -105,10 +80,26 @@ class App:
             self._running = False
         if event.type == pygame.USEREVENT:
             Cookies += (Cookies_CPS / 40)
-        if event.type == pygame.USEREVENT + 1 and len(new_positions) > 1:
-            new_positions.remove(mouse_pos)
-        if event.type == pygame.USEREVENT + 3:
-            new_positions = [(mouse_pos[0], mouse_pos[1] + 5) for (mouse_pos[0], mouse_pos[1]) in positions]
+        if event.type == pygame.USEREVENT + 4 and len(positions) > 0:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 5 and len(positions) > 1:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 6 and len(positions) > 2:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 7 and len(positions) > 3:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 8 and len(positions) > 4:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 9 and len(positions) > 5:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 10 and len(positions) > 6:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 11 and len(positions) > 7:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 12 and len(positions) > 8:
+            positions.remove(mouse_pos)
+        if event.type == pygame.USEREVENT + 13 and len(positions) > 9:
+            positions.remove(mouse_pos)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             dist_x = mouse_pos[0] - rect.centerx - 7
             dist_y = mouse_pos[1] - rect.centery + 35
@@ -116,10 +107,7 @@ class App:
                 Cookies += Cookies_PC
                 MouseClick += 1
                 positions.insert(0, mouse_pos)
-                if len(positions) == 0:
-                    pygame.time.set_timer(pygame.USEREVENT + 1, 400)
-                if len(positions) > 6:
-                    positions.pop()
+                self.click_display()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if 10 <= mouse_pos[0] <= 210 and 80 <= mouse_pos[1] <= 130 and Price1 <= Cookies:
                 Cookies -= Price1
