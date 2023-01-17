@@ -119,7 +119,7 @@ class App:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 1720 <= mouse_pos[0] <= 1770 and 10 <= mouse_pos[1] <= 60 and Price3 <= Cookies:
                 Cookies -= Price3                                               #HMMMMMM KNOP
-                Price3 = (Price3 * 5)
+                Price3 = (Price3 * 3)
                 Cookies_CPS_HMMMMM *= 2
                 DubbleBought += 1
 

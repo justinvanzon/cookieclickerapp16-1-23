@@ -11,21 +11,20 @@ from threading import Timer
 
 pygame.init()
 pygame.font.init()
-
 clock = pygame.time.Clock()
 radius = 178
 myfont_cookie = pygame.font.Font("CrimsonText-SemiBold.ttf", 45)
 myfont_cookie1 = pygame.font.Font("CrimsonText-SemiBold.ttf", 35)
 myfont_PC = pygame.font.Font("CrimsonText-SemiBold.ttf", 30)
 myfont_PC1 = pygame.font.Font("CrimsonText-SemiBold.ttf", 32)
-buildinginfoText = pygame.font.Font("CrimsonText-SemiBold.ttf", 20)
+buildinginfoText = pygame.font.SysFont('Corbel', 20)
 Cookies = 0
 Price1 = 50
-Price2 = 100
-Price3 = 200
-MouseClick = 0
 Cookies_PC = 1
+Price2 = 100
 Cookies_CPS_HMMMMM = 0
+MouseClick = 0
+Price3 = 200
 DubbleBought = 0
 pygame.time.set_timer(pygame.USEREVENT, 25)
 pygame.time.set_timer(pygame.USEREVENT + 1, 50)
